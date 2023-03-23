@@ -111,7 +111,7 @@ namespace VectorNamespace
             return crossProduct;
         }
 
-        public static float Length(Vector vector)
+        public static float Length(Vector vector) // посмотреть
             => vector.ScalarProduct(vector);
     }
 }
