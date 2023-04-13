@@ -75,7 +75,7 @@ internal class Program
 
         /* ------------------------------------------------------------------------------------- */
 
-        float[] vectorArray1 = { 1, 10, -3 }, vectorArray2 = { 12, 4, -10 }, basis1Array = { 1, 2, 10 }, basis2Array = { -5, 1, 6 }, basis3Array = { 3, 9, 1 };
+        float[] vectorArray1 = { 1, 10, 3 }, vectorArray2 = { 12, 4, -10 }, basis1Array = { 1, 2, 10 }, basis2Array = { -5, 1, 6 }, basis3Array = { 3, 9, 1 };
 
         Vector vector1 = new(3, 1), vector2 = new(3, 1), basis1 = new(3, 1), basis2 = new(3, 1), basis3 = new(3, 1);
         vector1.Insert(vectorArray1);
@@ -162,5 +162,8 @@ internal class Program
         Vector.Print(vectorSpace.Basis[0]);
         Vector.Print(vectorSpace.Basis[1]);
         Vector.Print(vectorSpace.Basis[2]);
+
+        Console.WriteLine("Поворот вектора: ");
+        Vector.Print(vector1.Rotate(90, 0, 0));
     }
 }

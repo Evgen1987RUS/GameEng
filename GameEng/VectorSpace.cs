@@ -44,9 +44,9 @@ namespace VectorSpaceNamespace
         {
             Vector vector = new(point.N, 1);
 
-            for (int i = 0; i < point.N; i++)
+            for (int i = 0; i < Dimension; i++)
             {
-                vector += point.CurrentMatrix[i, 0] * Basis[i];
+                vector += Basis[i] * point.CurrentMatrix[i, 0];
             }
 
             return vector;

@@ -1,6 +1,8 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Data;
 using System.Diagnostics.CodeAnalysis;
+using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.Serialization.Formatters;
 using VectorNamespace;
@@ -54,10 +56,8 @@ namespace MatrixNamespace
         public static dynamic operator +(Matrix matrix1, Matrix matrix2)
         {
             if (matrix1.N != matrix2.N || matrix1.M != matrix2.M) throw new Exception("This operation of matrices could not be defined: matrix1.N != matrix2.N (&& / ||) matrix1.M != matrix2.M");
-            
-            Type resType = matrix1.GetType();
 
-            dynamic matrixNew = resType.GetConstructor(new Type[] { typeof(int), typeof(int) }).Invoke(new object[] { matrix1.N, matrix1.M });
+            dynamic matrixNew = matrix1.GetType().GetConstructor(new Type[] { typeof(int), typeof(int) }).Invoke(new object[] { matrix1.N, matrix1.M });
 
             for (int i = 0; i < matrix1.N; i++)
             {
@@ -77,13 +77,11 @@ namespace MatrixNamespace
 
         public static dynamic operator *(Matrix matrix1, Matrix matrix2)
         {
-            if (matrix1.M != matrix2.N) throw new Exception("This operation of matrices could not be defined: matrix1.N != matrix2.M");
+            if (matrix1.M != matrix2.N) throw new Exception("This operation of matrices could not be defined: matrix1.M != matrix2.N");
 
             int counter = 0;
 
-            Type resType = matrix1.GetType();
-
-            dynamic matrixNew = resType.GetConstructor(new Type[] { typeof(int), typeof(int) }).Invoke(new object[] { matrix1.N, matrix1.M });
+            dynamic matrixNew = matrix1.GetType().GetConstructor(new Type[] { typeof(int), typeof(int) }).Invoke(new object[] { matrix1.N, matrix2.M });
 
             for (int i = 0; i < matrix1.N; i++)
             {
@@ -103,9 +101,7 @@ namespace MatrixNamespace
 
         public static dynamic operator *(Matrix matrix, float number)
         {
-            Type resType = matrix.GetType();
-
-            dynamic matrixNew = resType.GetConstructor(new Type[] { typeof(int), typeof(int) }).Invoke(new object[] { matrix.N, matrix.M });
+            dynamic matrixNew = matrix.GetType().GetConstructor(new Type[] { typeof(int), typeof(int) }).Invoke(new object[] { matrix.N, matrix.M });
 
             for (int i = 0; i < matrix.N; i++)
             {
@@ -277,6 +273,51 @@ namespace MatrixNamespace
             }
 
             return gramMatrix;
+        }
+
+        public dynamic Rotate(params float[] args)
+        {
+            // TODO: для 2d одну, для 3d другую; 
+            // TODO: матрица поворота - обязательно второй элемент в умножении (для сохранения типа (матрицы / вектора / точки)); 
+            dynamic rotatedMatrix = this.GetType().GetConstructor(new Type[] { typeof(int), typeof(int) }).Invoke(new object[] { N, M });
+
+            for (int i = 0; i < args.Length; i++) 
+                args[i] = args[i] * ((float)Math.PI / 180);
+
+            if (N == 2)
+            {
+                // TODO: if (args.Length != 1) ошибку с класса ошибок;
+
+                rotatedMatrix.CurrentMatrix[0, 0] = CurrentMatrix[0, 0] * (float)Math.Cos(args[0]) - CurrentMatrix[1, 0] * (float)Math.Sin(args[0]);
+                rotatedMatrix.CurrentMatrix[1, 0] = CurrentMatrix[0, 0] * (float)Math.Sin(args[0]) + CurrentMatrix[1, 0] * (float)Math.Cos(args[0]);
+
+                return rotatedMatrix;
+            }
+            else if (N == 3)
+            {
+                Matrix rotationMatrix = new(3, 3);
+
+                float sinAlpha = (float)Math.Sin(args[0]),
+                      cosAlpha = (float)Math.Cos(args[0]),
+                      sinBeta  = (float)Math.Sin(args[1]),
+                      cosBeta  = (float)Math.Cos(args[1]),
+                      sinGamma = (float)Math.Sin(args[2]), 
+                      cosGamma = (float)Math.Cos(args[2]);
+
+                float[] arrayForInsert = { cosBeta * cosGamma, -sinGamma * cosBeta, sinBeta, 
+                                           sinAlpha * sinBeta * cosGamma + sinGamma * cosAlpha, -sinAlpha * sinBeta * sinGamma + cosAlpha * cosGamma, -sinAlpha * cosBeta,
+                                           sinAlpha * sinGamma - sinBeta * cosAlpha * cosGamma, sinAlpha * cosGamma + sinBeta * sinGamma * cosAlpha, cosAlpha * cosBeta };
+
+                rotationMatrix.Insert(arrayForInsert);
+
+                rotatedMatrix = rotationMatrix * this;
+
+                return rotatedMatrix;
+            }
+
+            // TODO: n > 3 !&;
+
+            return 0;
         }
 
         public static void Print(Matrix matrix)
