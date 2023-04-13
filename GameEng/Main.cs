@@ -29,7 +29,7 @@ internal class Program
     private static void Main()
     {
         // тесты для всех перегрузок и методов
-        float[] array1 = { 1, 2, 3, 5, 6, 7, 9, 10, 10 }, array2 = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16 };
+        float[] array1 = { 1, 2, 3, 5, 6, 7, 9, 10, 10 }, array2 = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15 };
         float number = 5;
         int forIdentityCheck = 3;
 
@@ -106,6 +106,7 @@ internal class Program
 
         Console.WriteLine("Сложение векторов: ");
         Vector.Print(vector1 + vector2);
+        Console.WriteLine(vector1 + vector2);
 
         Console.WriteLine("Разность векторов: ");
         Vector.Print(vector1 - vector2);
@@ -133,7 +134,7 @@ internal class Program
         Vector.Print(vector1 ^ vector2);
 
         Console.WriteLine("Длина вектора: ");
-        Console.WriteLine(Vector.Length(vector1) + "\n");
+        Console.WriteLine(vector1.Length() + "\n");
 
         Console.WriteLine("Скалярное произведение (через матрицу Грама): ");
         Console.WriteLine(vectorSpace.ScalarProduct(vector1, vector2) + "\n");

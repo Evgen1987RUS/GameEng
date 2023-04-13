@@ -11,78 +11,11 @@ namespace VectorNamespace
 {
     class Vector : Matrix
     {
-        public Vector(int N, int M) : base (N, M) 
-        {
-
-        }
-
-        public static Vector operator +(Vector vector1, Vector vector2)
-        {
-            if (vector1.N != vector2.N) throw new Exception("Sum of vectors could not be defined: vector1.N != vector2.N");
-
-            Vector vectorNew = new(vector1.N, 1);
-
-            for (int i = 0; i <  vector1.N; i++)
-            {
-                vectorNew.CurrentMatrix[i, 0] = vector1.CurrentMatrix[i, 0] + vector2.CurrentMatrix[i, 0];
-            }
-
-            return vectorNew;
-        }
-
-        public static Vector operator -(Vector vector1, Vector vector2)
-        {
-            if (vector1.N != vector2.N) throw new Exception("Difference of vectors could not be defined: vector1.N != vector2.N");
-
-            Vector vectorNew = new(vector1.N, vector2.M);
-
-            for (int i = 0; i < vector1.N; i++)
-            {
-                vectorNew.CurrentMatrix[i, 0] = vector1.CurrentMatrix[i, 0] - vector2.CurrentMatrix[i, 0];
-            }
-
-            return vectorNew;
-        }
-
-        public static Vector operator *(Vector vector, float number)
-        {
-            Vector vectorNew = new(vector.N, vector.M);
-
-            for (int i = 0; i < vector.N; i++)
-            {
-                vectorNew.CurrentMatrix[i, 0] = vector.CurrentMatrix[i, 0] * number;
-            }
-
-            return vectorNew;
-        }
-
-        public static Vector operator *(float number, Vector vector)
-        {
-            Vector vectorNew = new(vector.N, vector.M);
-
-            for (int i = 0; i < vector.N; i++)
-            {
-                vectorNew.CurrentMatrix[i, 0] = vector.CurrentMatrix[i, 0] * number;
-            }
-
-            return vectorNew;
-        }
-
-        public static Vector operator /(Vector vector, float number)
-        {
-            Vector vectorNew = new(vector.N, vector.M);
-
-            for (int i = 0; i < vector.N; i++)
-            {
-                vectorNew.CurrentMatrix[i, 0] = vector.CurrentMatrix[i, 0] / number;
-            }
-
-            return vectorNew;
-        }
+        public Vector(int N, int M) : base(N, M) {}
 
         public static float operator %(Vector vector1, Vector vector2)
             => vector1.ScalarProduct(vector2);
-
+        
         public static Vector operator ^(Vector vector1, Vector vector2)
             => vector1.CrossProduct(vector2);
 
@@ -111,7 +44,7 @@ namespace VectorNamespace
             return crossProduct;
         }
 
-        public static float Length(Vector vector)
-            => vector.ScalarProduct(vector);
+        public float Length()
+            => ScalarProduct(this);
     }
 }

@@ -51,11 +51,13 @@ namespace MatrixNamespace
             }
         }
 
-        public static Matrix operator +(Matrix matrix1, Matrix matrix2)
+        public static dynamic operator +(Matrix matrix1, Matrix matrix2)
         {
-            if (matrix1.N != matrix2.N || matrix1.M != matrix2.M) throw new Exception("Sum of matrices could not be defined: matrix1.N != matrix2.N (&& / ||) matrix1.M != matrix2.M");
+            if (matrix1.N != matrix2.N || matrix1.M != matrix2.M) throw new Exception("This operation of matrices could not be defined: matrix1.N != matrix2.N (&& / ||) matrix1.M != matrix2.M");
             
-            Matrix matrixNew = new(matrix1.N, matrix1.M);
+            Type resType = matrix1.GetType();
+
+            dynamic matrixNew = resType.GetConstructor(new Type[] { typeof(int), typeof(int) }).Invoke(new object[] { matrix1.N, matrix1.M });
 
             for (int i = 0; i < matrix1.N; i++)
             {
@@ -68,29 +70,20 @@ namespace MatrixNamespace
             return matrixNew;
         }
 
-        public static Matrix operator -(Matrix matrix1, Matrix matrix2)
+        public static dynamic operator -(Matrix matrix1, Matrix matrix2)
         {
-            if (matrix1.N != matrix2.N || matrix1.M != matrix2.M) throw new Exception("Difference of matrices could not be defined: matrix1.N != matrix2.N (&& / ||) matrix1.M != matrix2.M");
-            
-            Matrix matrixNew = new(matrix1.N, matrix2.M);
-
-            for (int i = 0; i < matrix1.N; i++)
-            {
-                for (int j = 0; j < matrix1.M; j++)
-                {
-                    matrixNew.CurrentMatrix[i, j] = matrix1.CurrentMatrix[i, j] - matrix2.CurrentMatrix[i, j];
-                }
-            }
-
-            return matrixNew;
+            return matrix1 + matrix2 * (-1);
         }
 
-        public static Matrix operator *(Matrix matrix1, Matrix matrix2)
+        public static dynamic operator *(Matrix matrix1, Matrix matrix2)
         {
-            if (matrix1.M != matrix2.N) throw new Exception("Multiplication of matrices could not be defined: matrix1.N != matrix2.M");
+            if (matrix1.M != matrix2.N) throw new Exception("This operation of matrices could not be defined: matrix1.N != matrix2.M");
 
             int counter = 0;
-            Matrix matrixNew = new(matrix1.N, matrix2.M);
+
+            Type resType = matrix1.GetType();
+
+            dynamic matrixNew = resType.GetConstructor(new Type[] { typeof(int), typeof(int) }).Invoke(new object[] { matrix1.N, matrix1.M });
 
             for (int i = 0; i < matrix1.N; i++)
             {
@@ -108,9 +101,11 @@ namespace MatrixNamespace
             return matrixNew;
         }
 
-        public static Matrix operator *(Matrix matrix, float number)
+        public static dynamic operator *(Matrix matrix, float number)
         {
-            Matrix matrixNew = new(matrix.N, matrix.M);
+            Type resType = matrix.GetType();
+
+            dynamic matrixNew = resType.GetConstructor(new Type[] { typeof(int), typeof(int) }).Invoke(new object[] { matrix.N, matrix.M });
 
             for (int i = 0; i < matrix.N; i++)
             {
@@ -123,40 +118,21 @@ namespace MatrixNamespace
             return matrixNew;
         }
 
-        public static Matrix operator *(float number, Matrix matrix)
+        public static dynamic operator *(float number, Matrix matrix)
         {
-
-            Matrix matrixNew = new(matrix.N, matrix.M);
-
-            for (int i = 0; i < matrix.N; i++)
-            {
-                for (int j = 0; j < matrix.M; j++)
-                {
-                    matrixNew.CurrentMatrix[i, j] = matrix.CurrentMatrix[i, j] * number;
-                }
-            }
-
-            return matrixNew;
+            return matrix * number;
         }
 
-        public static Matrix operator /(Matrix matrix, float number)
+        public static dynamic operator /(Matrix matrix, float number)
         {
-            Matrix matrixNew = new(matrix.N, matrix.M);
-
-            for (int i = 0; i < matrix.N; i++)
-            {
-                for (int j = 0; j < matrix.M; j++)
-                {
-                    matrixNew.CurrentMatrix[i, j] = matrix.CurrentMatrix[i, j] / number;
-                }
-            }
-
-            return matrixNew;
+            if (number == 0) throw new Exception("Zero division error");
+            
+            return matrix * (1 / number);
         }
 
         private Matrix CreateMatrixWithoutColumn(int column)
         {
-            if (column < 0 || column >= M) throw new Exception("Invalid column");
+            if (column < 0 || column >= M) throw new Exception("Invalid index of column");
 
             Matrix matrixNew = new(N, M - 1);
             
@@ -180,19 +156,23 @@ namespace MatrixNamespace
 
         private Matrix CreateMatrixWithoutRow(int row)
         {
-            if (row < 0 || row >= N) throw new Exception("Invalid row");
+            if (row < 0 || row >= N) throw new Exception("Invalid index of row");
 
             Matrix matrixNew = new(N - 1, M);
 
             for (int i = 0; i < N; i++)
             {
+                if (i == row)
+                {
+                    continue;
+                }
+
                 for (int j = 0; j < M; j++)
                 {
                     if (i < row)
                     {
                         matrixNew.CurrentMatrix[i, j] = CurrentMatrix[i, j];
                     }
-                    else if (i == row) break;
                     else if (i > row)
                     {
                         matrixNew.CurrentMatrix[i - 1, j] = CurrentMatrix[i, j];
@@ -205,7 +185,7 @@ namespace MatrixNamespace
 
         public float Determinant()
         {
-            if (N != M) throw new Exception("Determinant of matrix could not be defined: N != M");
+            if (N != M) throw new Exception("This operation of matrix could not be defined: N != M");
 
             if (N == 1)
             {
@@ -230,8 +210,8 @@ namespace MatrixNamespace
 
         public Matrix Inverse()
         {
-            if (N != M) throw new Exception("Inverse of matrix could not be defined: N != M");
-            if (Determinant() == 0) throw new Exception("Inverse of matrix could not be defined: determinant of matrix == 0");
+            if (N != M) throw new Exception("This operation of matrix could not be defined: N != M");
+            if (Determinant() == 0) throw new Exception("This operation of matrix could not be defined: determinant of matrix == 0");
 
             Matrix cofactorMatrix = new(N, M);
 
