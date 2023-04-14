@@ -4,10 +4,8 @@ using System.Linq;
 using System.Runtime.ConstrainedExecution;
 using System.Text;
 using System.Threading.Tasks;
-using MatrixNamespace;
-using VectorSpaceNamespace;
 
-namespace VectorNamespace
+namespace GameEngNamespace
 {
     class Vector : Matrix
     {
@@ -33,7 +31,7 @@ namespace VectorNamespace
 
         public Vector CrossProduct(Vector vector)
         {
-            if (N != 3) throw new Exception("Cross product could not be defined: N != 3");
+            if (N != 3) throw new EngineExceptions.MutualExceptions.BadInput();
 
             Vector crossProduct = new(3, 1);
 

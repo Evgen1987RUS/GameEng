@@ -3,11 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using PointNamespace;
-using VectorSpaceNamespace;
-using VectorNamespace;
 
-namespace CoordinateSystemNamespace
+namespace GameEngNamespace
 {
     class CoordinateSystem
     {

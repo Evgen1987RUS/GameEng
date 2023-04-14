@@ -1,9 +1,5 @@
 ﻿using System;
-using MatrixNamespace;
-using PointNamespace;
-using VectorNamespace;
-using VectorSpaceNamespace;
-using CoordinateSystemNamespace;
+using GameEngNamespace;
 
 internal class Program
 {

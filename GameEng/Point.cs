@@ -1,7 +1,6 @@
 ﻿using System;
-using VectorNamespace;
 
-namespace PointNamespace
+namespace GameEngNamespace
 {
     class Point : Vector
     {
