@@ -10,7 +10,7 @@ namespace GameEngNamespace
     {
         public abstract class InMatrixExceptions
         {
-            public class WrongSize : Exception { public WrongSize() : base("Sizes do not match") { } }
+            public class BadSize : Exception { public BadSize() : base("Sizes do not match") { } }
 
             public class DivisionByZero : Exception { public DivisionByZero() : base("Division by zero") { } }
 

@@ -5,9 +5,9 @@ internal class Program
 {
     public static float BilinearForm(Matrix matrix, Vector vector1, Vector vector2)
     {
-        if (matrix.N != matrix.M) throw new Exception("Bilinear form could not be defined: matrix is not square");
-        if (vector1.N != vector2.N) throw new Exception("Bilinear form could not be defined: vector1.N != vector2.N");
-        if (vector1.N != matrix.N) throw new Exception("Bilinear form could not be defined: vector1.N == vector2.N != matrix.N");
+        if (matrix.N != matrix.M) throw new EngineExceptions.InMatrixExceptions.BadSize();
+        if (vector1.N != vector2.N) throw new EngineExceptions.InMatrixExceptions.BadSize(); ;
+        if (vector1.N != matrix.N) throw new EngineExceptions.InMatrixExceptions.BadSize(); ;
 
         float sum = 0;
 

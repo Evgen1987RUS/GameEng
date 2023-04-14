@@ -54,7 +54,7 @@ namespace GameEngNamespace
 
         public static dynamic operator +(Matrix matrix1, Matrix matrix2)
         {
-            if (matrix1.N != matrix2.N || matrix1.M != matrix2.M) throw new EngineExceptions.InMatrixExceptions.WrongSize();
+            if (matrix1.N != matrix2.N || matrix1.M != matrix2.M) throw new EngineExceptions.InMatrixExceptions.BadSize();
 
             dynamic matrixNew = matrix1.GetType().GetConstructor(new Type[] { typeof(int), typeof(int) })!.Invoke(new object[] { matrix1.N, matrix1.M });
 
@@ -76,7 +76,7 @@ namespace GameEngNamespace
 
         public static dynamic operator *(Matrix matrix1, Matrix matrix2)
         {
-            if (matrix1.M != matrix2.N) throw new EngineExceptions.InMatrixExceptions.WrongSize();
+            if (matrix1.M != matrix2.N) throw new EngineExceptions.InMatrixExceptions.BadSize();
 
             int counter = 0;
 
@@ -180,7 +180,7 @@ namespace GameEngNamespace
 
         public float Determinant()
         {
-            if (N != M) throw new EngineExceptions.InMatrixExceptions.WrongSize();
+            if (N != M) throw new EngineExceptions.InMatrixExceptions.BadSize();
 
             if (N == 1)
             {
@@ -205,7 +205,7 @@ namespace GameEngNamespace
 
         public Matrix Inverse()
         {
-            if (N != M) throw new EngineExceptions.InMatrixExceptions.WrongSize();
+            if (N != M) throw new EngineExceptions.InMatrixExceptions.BadSize();
             if (Determinant() == 0) throw new EngineExceptions.InMatrixExceptions.DeterminantEqualsZero();
 
             Matrix cofactorMatrix = new(N, M);
