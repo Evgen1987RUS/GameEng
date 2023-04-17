@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace GameEngNamespace
 {
-    class CoordinateSystem
+    public class CoordinateSystem
     {
         Point _point;
         VectorSpace _vectorSpace;

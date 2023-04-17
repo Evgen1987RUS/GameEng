@@ -2,7 +2,7 @@
 
 namespace GameEngNamespace
 {
-    class Point : Vector
+    public class Point : Vector
     {
         public Point(int N, int M) : base(N, M) 
         { 

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace GameEngNamespace
 {
-    class Vector : Matrix
+    public class Vector : Matrix
     {
         public Vector(int N, int M) : base(N, M) {}
 
@@ -36,8 +36,8 @@ namespace GameEngNamespace
             Vector crossProduct = new(3, 1);
 
             crossProduct.CurrentMatrix[0, 0] = CurrentMatrix[1, 0] * vector.CurrentMatrix[2, 0] - vector.CurrentMatrix[1, 0] * CurrentMatrix[2, 0];
-            crossProduct.CurrentMatrix[1, 0] = CurrentMatrix[0, 0] * vector.CurrentMatrix[1, 0] - vector.CurrentMatrix[0, 0] * CurrentMatrix[1, 0];
-            crossProduct.CurrentMatrix[2, 0] = vector.CurrentMatrix[0, 0] * CurrentMatrix[2, 0] - CurrentMatrix[0, 0] * vector.CurrentMatrix[2, 0];
+            crossProduct.CurrentMatrix[1, 0] = -CurrentMatrix[0, 0] * vector.CurrentMatrix[2, 0] + vector.CurrentMatrix[0, 0] * CurrentMatrix[2, 0];
+            crossProduct.CurrentMatrix[2, 0] = vector.CurrentMatrix[1, 0] * CurrentMatrix[0, 0] - CurrentMatrix[1, 0] * vector.CurrentMatrix[0, 0];
             
             return crossProduct;
         }

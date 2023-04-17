@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace GameEngNamespace
 {
-    class VectorSpace
+    public class VectorSpace
     {
         int _dimension;
         Vector[] _basis;
@@ -43,7 +43,8 @@ namespace GameEngNamespace
 
             for (int i = 0; i < Dimension; i++)
             {
-                vector += Basis[i] * point.CurrentMatrix[i, 0];
+               Console.WriteLine(Basis[i]);
+               vector += Basis[i] * point.CurrentMatrix[i, 0];
             }
 
             return vector;

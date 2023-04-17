@@ -8,7 +8,7 @@ using System.Runtime.Serialization.Formatters;
 
 namespace GameEngNamespace
 {
-    class Matrix
+    public class Matrix
     {
         int _n, _m;
         float[,] _matrix;
@@ -36,20 +36,6 @@ namespace GameEngNamespace
             _n = n;
             _m = m;
             _matrix = new float[N, M];
-        }
-
-        public void Insert(float[] array)
-        {
-            int counter2 = 0;
-
-            for (int i = 0; i < N; i++) 
-            {
-                for (int j = 0; j < M; j++)
-                {
-                    CurrentMatrix[i, j] = array[counter2];
-                    counter2++;
-                }
-            }
         }
 
         public static dynamic operator +(Matrix matrix1, Matrix matrix2)
@@ -114,15 +100,17 @@ namespace GameEngNamespace
         }
 
         public static dynamic operator *(float number, Matrix matrix)
-        {
-            return matrix * number;
-        }
+            => matrix * number;
 
         public static dynamic operator /(Matrix matrix, float number)
         {
             if (number == 0) throw new EngineExceptions.InMatrixExceptions.DivisionByZero();
-            
-            return matrix * (1 / number);
+
+            dynamic matrixNew = matrix.GetType().GetConstructor(new Type[] { typeof(int), typeof(int) })!.Invoke(new object[] { matrix.N, matrix.M });
+
+            matrixNew = matrix * (1 / number);
+
+            return matrixNew;
         }
 
         private Matrix CreateMatrixWithoutColumn(int column)
@@ -300,16 +288,16 @@ namespace GameEngNamespace
 
                 float sinAlpha = (float)Math.Sin(args[0]),
                       cosAlpha = (float)Math.Cos(args[0]),
-                      sinBeta = (float)Math.Sin(args[1]),
-                      cosBeta = (float)Math.Cos(args[1]),
+                      sinBeta  = (float)Math.Sin(args[1]),
+                      cosBeta  = (float)Math.Cos(args[1]),
                       sinGamma = (float)Math.Sin(args[2]),
                       cosGamma = (float)Math.Cos(args[2]);
 
-                float[] arrayForInsert = { cosBeta * cosGamma, -sinGamma * cosBeta, sinBeta,
-                                           sinAlpha * sinBeta * cosGamma + sinGamma * cosAlpha, -sinAlpha * sinBeta * sinGamma + cosAlpha * cosGamma, -sinAlpha * cosBeta,
-                                           sinAlpha * sinGamma - sinBeta * cosAlpha * cosGamma, sinAlpha * cosGamma + sinBeta * sinGamma * cosAlpha, cosAlpha * cosBeta };
+                float[,] arrayForInsert = { { cosBeta * cosGamma, -sinGamma * cosBeta, sinBeta },
+                                            { sinAlpha * sinBeta * cosGamma + sinGamma * cosAlpha, -sinAlpha * sinBeta * sinGamma + cosAlpha * cosGamma, -sinAlpha * cosBeta },
+                                            { sinAlpha * sinGamma - sinBeta * cosAlpha * cosGamma, sinAlpha * cosGamma + sinBeta * sinGamma * cosAlpha, cosAlpha * cosBeta } };
 
-                rotationMatrix.Insert(arrayForInsert);
+                rotationMatrix.CurrentMatrix = arrayForInsert;
 
                 rotatedMatrix = rotationMatrix * this;
 
