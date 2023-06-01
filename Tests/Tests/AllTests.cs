@@ -1,4 +1,5 @@
 using Engine;
+using GameEng;
 using GameEngNamespace;
 
 namespace Tests
@@ -587,6 +588,81 @@ namespace Tests
             Console.WriteLine(identifier.ValueNumber);
 
             Assert.IsTrue(true);
+        }
+    }
+
+    [TestClass]
+    public class EntitiesTests
+    {
+        float[,] basis1array = {
+            { 1 },
+            { 2 },
+            { 10 }
+        };
+
+        float[,] basis2array = {
+            { -5 },
+            { 1 },
+            { 6 }
+        };
+
+        float[,] basis3array = {
+            { 3 },
+            { 9 },
+            { 1 }
+        };
+
+        Vector basis1 = new(3, 1), basis2 = new(3, 1), basis3 = new(3, 1);
+
+        [TestMethod]
+        public void SetAndGetPropertyTest() 
+        {
+            float[,] array =
+            {
+                { 1 },
+                { 2 },
+                { 3 },
+            };
+
+            basis1.CurrentMatrix = basis1array;
+            basis2.CurrentMatrix = basis2array;
+            basis3.CurrentMatrix = basis3array;
+            VectorSpace vectorSpace = new(3, basis1, basis2, basis3);
+            Point pt = new(3, 1);
+            pt.CurrentMatrix = array;
+            CoordinateSystem cs = new(pt, vectorSpace);
+
+            Entity entity = new(cs);
+
+            entity.SetProperty("bebra", true);
+
+            Assert.IsTrue(entity.GetProperty("bebra"));
+        }
+
+        [TestMethod]
+        public void RemovePropertyTest()
+        {
+            float[,] array =
+            {
+                { 1 },
+                { 2 },
+                { 3 },
+            };
+
+            basis1.CurrentMatrix = basis1array;
+            basis2.CurrentMatrix = basis2array;
+            basis3.CurrentMatrix = basis3array;
+            VectorSpace vectorSpace = new(3, basis1, basis2, basis3);
+            Point pt = new(3, 1);
+            pt.CurrentMatrix = array;
+            CoordinateSystem cs = new(pt, vectorSpace);
+
+            Entity entity = new(cs);
+
+            entity.SetProperty("bebra", true);
+            entity.RemovePropety("bebra");
+
+// TODO: ƒŒƒ≈À¿“‹ “≈—“
         }
     }
 }

@@ -19,6 +19,12 @@ namespace GameEngNamespace
             public class DeterminantEqualsZero : Exception { public DeterminantEqualsZero() : base("Determinant equals zero") { } }
         }
 
+        public abstract class InEntityExceptions
+        {
+            public class NoPropertyFound : Exception { public NoPropertyFound() : base("No property with the given key found") { } }
+            public class NoKeyFound : Exception { public NoKeyFound() : base("No key found for the operation") { } }
+        }
+
         public abstract class MutualExceptions
         {
             public class BadInput : Exception { public BadInput() : base("Bad input") { } }
