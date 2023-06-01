@@ -1,7 +1,4 @@
 using GameEngNamespace;
-using Microsoft.VisualStudio.TestPlatform.TestHost;
-using System;
-using System.Runtime.ConstrainedExecution;
 
 namespace Tests
 {
@@ -287,8 +284,8 @@ namespace Tests
         {
             float[,] arrayForCorrectAnswer = {
                 { 4 },
-                { 4 }, 
-                { 4 }, 
+                { 4 },
+                { 4 },
             };
 
             Vector vector1 = new(3, 1), vector2 = new(3, 1), vector3 = new(3, 1);
@@ -328,7 +325,7 @@ namespace Tests
 
         [TestMethod]
         public void VectorsScalarProduct()
-        { 
+        {
             Vector vector1 = new(3, 1), vector2 = new(3, 1);
             vector1.CurrentMatrix = arrayForTests1;
             vector2.CurrentMatrix = arrayForTests2;
@@ -344,7 +341,7 @@ namespace Tests
                 { 8 },
                 { -4 }
             };
-            
+
             Vector vector1 = new(3, 1), vector2 = new(3, 1), vector3 = new(3, 1);
             vector1.CurrentMatrix = arrayForTests1;
             vector2.CurrentMatrix = arrayForTests2;
@@ -422,7 +419,7 @@ namespace Tests
         }
 
         [TestMethod]
-        public void BilinearFormTest() 
+        public void BilinearFormTest()
         {
             float[,] uniqueArrayForTest = {
                 { 1, 2, 3 },
@@ -441,7 +438,7 @@ namespace Tests
         }
 
         [TestMethod]
-        public void VectorLength() 
+        public void VectorLength()
         {
             Vector vector = new(3, 1);
             vector.CurrentMatrix = arrayForTests1;
@@ -482,7 +479,7 @@ namespace Tests
             { 1 }
         };
 
-        Vector basis1 = new(3, 1), basis2 = new(3, 1), basis3 = new(3, 1); 
+        Vector basis1 = new(3, 1), basis2 = new(3, 1), basis3 = new(3, 1);
 
         [TestMethod]
         public void GramMatrixTest()
@@ -557,7 +554,7 @@ namespace Tests
         }
 
     }
-/*
-    [TestClass]
-    public class PointTests { }*/
+    /*
+        [TestClass]
+        public class PointTests { }*/
 }
