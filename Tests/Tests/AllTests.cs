@@ -1,3 +1,4 @@
+using Engine;
 using GameEngNamespace;
 
 namespace Tests
@@ -244,9 +245,9 @@ namespace Tests
         public void MatrixRotation()
         {
             float[,] arrayForCorrectAnswer = {
-                { 1f, 2f, 3f, },
-                { 4f, 5f, 6f },
-                { 7f, 8f, 9f }
+                { 1f, -4f, 3f, },
+                { 2f, 10f, -5f },
+                { 8f, 2f, 9f }
             };
 
             Matrix matrix = new(3, 3);
@@ -557,4 +558,35 @@ namespace Tests
     /*
         [TestClass]
         public class PointTests { }*/
+
+    [TestClass]
+    public class IdentifierTests
+    {
+        [TestMethod]
+        public void IdentifierGenerationTest()
+        {
+            Identifier identifier = new();
+
+            for (int i = 1; i < 100; i++)
+            {
+                identifier.Generate();
+                Console.WriteLine(identifier.Identifiers[i]);
+            }
+
+            Assert.IsTrue(true);
+        }
+
+        [TestMethod]
+        public void IdentifierGetValueTest() 
+        {
+            Identifier identifier = new();
+            Console.Write(identifier.GetValue() + "; Current value number: ");
+            Console.WriteLine(identifier.ValueNumber);
+            identifier.Generate();
+            Console.Write(identifier.GetValue() + "; Current value number: ");
+            Console.WriteLine(identifier.ValueNumber);
+
+            Assert.IsTrue(true);
+        }
+    }
 }
