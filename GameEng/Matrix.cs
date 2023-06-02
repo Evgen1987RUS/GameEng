@@ -10,8 +10,8 @@ namespace GameEngNamespace
 {
     public class Matrix
     {
-        int _n, _m;
-        float[,] _matrix;
+        private int _n, _m;
+        private float[,] _matrix;
 
         public int N 
         { 

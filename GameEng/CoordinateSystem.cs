@@ -8,8 +8,8 @@ namespace GameEngNamespace
 {
     public class CoordinateSystem
     {
-        Point _point;
-        VectorSpace _vectorSpace;
+        private Point _point;
+        private VectorSpace _vectorSpace;
 
         public Point Point
         {

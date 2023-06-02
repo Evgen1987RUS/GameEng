@@ -1,7 +1,6 @@
+using Engine;
+using GameEng;
 using GameEngNamespace;
-using Microsoft.VisualStudio.TestPlatform.TestHost;
-using System;
-using System.Runtime.ConstrainedExecution;
 
 namespace Tests
 {
@@ -289,8 +288,8 @@ namespace Tests
         {
             float[,] arrayForCorrectAnswer = {
                 { 4 },
-                { 4 }, 
-                { 4 }, 
+                { 4 },
+                { 4 },
             };
 
             Vector vector1 = new(3, 1), vector2 = new(3, 1), vector3 = new(3, 1);
@@ -330,7 +329,7 @@ namespace Tests
 
         [TestMethod]
         public void VectorsScalarProduct()
-        { 
+        {
             Vector vector1 = new(3, 1), vector2 = new(3, 1);
             vector1.CurrentMatrix = arrayForTests1;
             vector2.CurrentMatrix = arrayForTests2;
@@ -346,7 +345,7 @@ namespace Tests
                 { 8 },
                 { -4 }
             };
-            
+
             Vector vector1 = new(3, 1), vector2 = new(3, 1), vector3 = new(3, 1);
             vector1.CurrentMatrix = arrayForTests1;
             vector2.CurrentMatrix = arrayForTests2;
@@ -424,7 +423,7 @@ namespace Tests
         }
 
         [TestMethod]
-        public void BilinearFormTest() 
+        public void BilinearFormTest()
         {
             float[,] uniqueArrayForTest = {
                 { 1, 2, 3 },
@@ -443,7 +442,7 @@ namespace Tests
         }
 
         [TestMethod]
-        public void VectorLength() 
+        public void VectorLength()
         {
             Vector vector = new(3, 1);
             vector.CurrentMatrix = arrayForTests1;
@@ -484,7 +483,7 @@ namespace Tests
             { 1 }
         };
 
-        Vector basis1 = new(3, 1), basis2 = new(3, 1), basis3 = new(3, 1); 
+        Vector basis1 = new(3, 1), basis2 = new(3, 1), basis3 = new(3, 1);
 
         [TestMethod]
         public void GramMatrixTest()
@@ -559,7 +558,113 @@ namespace Tests
         }
 
     }
-/*
+    /*
+        [TestClass]
+        public class PointTests { }*/
+
     [TestClass]
-    public class PointTests { }*/
+    public class IdentifierTests
+    {
+        [TestMethod]
+        public void IdentifierGenerationTest()
+        {
+            Identifier identifier = new();
+
+            for (int i = 1; i < 100; i++)
+            {
+                identifier.Generate();
+                Console.WriteLine(identifier.Identifiers[i]);
+            }
+
+            Assert.IsTrue(true);
+        }
+
+        [TestMethod]
+        public void IdentifierGetValueTest() 
+        {
+            Identifier identifier = new();
+            Console.Write(identifier.GetValue() + "; Current value number: ");
+            Console.WriteLine(identifier.ValueNumber);
+            identifier.Generate();
+            Console.Write(identifier.GetValue() + "; Current value number: ");
+            Console.WriteLine(identifier.ValueNumber);
+
+            Assert.IsTrue(true);
+        }
+    }
+
+    [TestClass]
+    public class EntitiesTests
+    {
+        float[,] basis1array = {
+            { 1 },
+            { 2 },
+            { 10 }
+        };
+
+        float[,] basis2array = {
+            { -5 },
+            { 1 },
+            { 6 }
+        };
+
+        float[,] basis3array = {
+            { 3 },
+            { 9 },
+            { 1 }
+        };
+
+        Vector basis1 = new(3, 1), basis2 = new(3, 1), basis3 = new(3, 1);
+
+        [TestMethod]
+        public void SetAndGetPropertyTest() 
+        {
+            float[,] array =
+            {
+                { 1 },
+                { 2 },
+                { 3 },
+            };
+
+            basis1.CurrentMatrix = basis1array;
+            basis2.CurrentMatrix = basis2array;
+            basis3.CurrentMatrix = basis3array;
+            VectorSpace vectorSpace = new(3, basis1, basis2, basis3);
+            Point pt = new(3, 1);
+            pt.CurrentMatrix = array;
+            CoordinateSystem cs = new(pt, vectorSpace);
+
+            Entity entity = new(cs);
+
+            entity.SetProperty("bebra", true);
+
+            Assert.IsTrue(entity.GetProperty("bebra"));
+        }
+
+        [TestMethod]
+        public void RemovePropertyTest()
+        {
+            float[,] array =
+            {
+                { 1 },
+                { 2 },
+                { 3 },
+            };
+
+            basis1.CurrentMatrix = basis1array;
+            basis2.CurrentMatrix = basis2array;
+            basis3.CurrentMatrix = basis3array;
+            VectorSpace vectorSpace = new(3, basis1, basis2, basis3);
+            Point pt = new(3, 1);
+            pt.CurrentMatrix = array;
+            CoordinateSystem cs = new(pt, vectorSpace);
+
+            Entity entity = new(cs);
+
+            entity.SetProperty("bebra", true);
+            entity.RemovePropety("bebra");
+
+// TODO: ÄÎÄÅËÀÒÜ ÒÅÑÒ
+        }
+    }
 }

@@ -8,8 +8,8 @@ namespace GameEngNamespace
 {
     public class VectorSpace
     {
-        int _dimension;
-        Vector[] _basis;
+        private int _dimension;
+        private Vector[] _basis;
 
         public int Dimension
         {
