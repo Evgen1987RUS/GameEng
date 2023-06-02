@@ -38,6 +38,23 @@ namespace GameEngNamespace
             _matrix = new float[N, M];
         }
 
+        public bool isEqual(Matrix matrix1, Matrix matrix2)
+        {
+            if (matrix1.N != matrix2.N || matrix1.M != matrix2.M) { throw new EngineExceptions.InMatrixExceptions.BadSize(); }
+
+            for (int i = 0; i < matrix1.N; i++)
+            {
+                for (int j = 0; j < matrix2.M; j++)
+                {
+                    if (matrix1.CurrentMatrix[i, j] != matrix2.CurrentMatrix[i, j])
+                    {
+                        return false;
+                    }
+                }
+            }
+            return true;
+        }
+
         public static dynamic operator +(Matrix matrix1, Matrix matrix2)
         {
             if (matrix1.N != matrix2.N || matrix1.M != matrix2.M) throw new EngineExceptions.InMatrixExceptions.BadSize();
