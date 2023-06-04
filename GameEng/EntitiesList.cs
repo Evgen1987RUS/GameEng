@@ -44,11 +44,11 @@ namespace GameEng
                 throw new EngineExceptions.InEntityExceptions.NoKeyFound();
         }
 
-// TODO : exec <> ?
+        // пройтись по списку
 
-        public EntitiesList this[Identifier id]
+        public Entity this[Identifier id]
         {
-            get { GetEntity(id); return this; }
+            get { return GetEntity(id); }
             set { Entities[id.Value] = value; }
         }
     }

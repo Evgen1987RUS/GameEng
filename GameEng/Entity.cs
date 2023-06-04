@@ -56,10 +56,8 @@ namespace GameEng
 
         public Entity this[string property]
         {
-            get { GetProperty(property); return this; }
+            get { return GetProperty(property); }
             set { Properties[property] = value; }
         }
-
-
     }
 }

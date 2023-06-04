@@ -34,7 +34,7 @@ namespace Engine
 
         public dynamic GetValue() { return Value; }
 
-        public void Generate() 
+        public void Generate() // TODO : переделать без рандома на инкремент
         {
             string charsForGenerate = "abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNOPQRSTUVWXYZ0123456789";
             Random randomNumber = new();
