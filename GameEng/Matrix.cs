@@ -279,17 +279,7 @@ namespace GameEngNamespace
             return gramMatrix;
         }
 
-        public dynamic Rotate(params float[] args)
-        {
-            dynamic rotatedMatrix = this.GetType().GetConstructor(new Type[] { typeof(int), typeof(int) })!.Invoke(new object[] { N, M });
-
-            for (int i = 0; i < args.Length; i++) 
-                args[i] = args[i] * ((float)Math.PI / 180);
-
-            if (N == 2)
-            {
-                if (args.Length != 1)
-                    throw new EngineExceptions.MutualExceptions.BadInput();
+//TODO : Rotate
 
                 rotatedMatrix.CurrentMatrix[0, 0] = CurrentMatrix[0, 0] * (float)Math.Cos(args[0]) - CurrentMatrix[1, 0] * (float)Math.Sin(args[0]);
                 rotatedMatrix.CurrentMatrix[1, 0] = CurrentMatrix[0, 0] * (float)Math.Sin(args[0]) + CurrentMatrix[1, 0] * (float)Math.Cos(args[0]);
