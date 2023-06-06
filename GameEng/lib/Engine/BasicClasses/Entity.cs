@@ -1,12 +1,12 @@
-﻿using Engine;
-using GameEngNamespace;
+﻿using GameEng.lib.BasicMath;
+using GameEng.lib.Exceptions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GameEng
+namespace GameEng.lib.Engine.BasicClasses
 {
     public class Entity
     {
@@ -14,24 +14,25 @@ namespace GameEng
         Identifier _identifier = new();
         Dictionary<string, dynamic> _properties = new();
 
-        public Identifier Id { 
-            get { return _identifier; } 
+        public Identifier Id
+        {
+            get { return _identifier; }
             set { _identifier = value; }
         }
 
-        public Dictionary<string, dynamic> Properties 
-        { 
-            get { return _properties; } 
-            set { _properties = value; } 
+        public Dictionary<string, dynamic> Properties
+        {
+            get { return _properties; }
+            set { _properties = value; }
         }
 
-        public CoordinateSystem CoordinateSyst 
-        { 
-            get { return _coordinateSystem; } 
+        public CoordinateSystem CoordinateSyst
+        {
+            get { return _coordinateSystem; }
             set { _coordinateSystem = value; }
         }
 
-        public Entity(CoordinateSystem coordinateSystem) 
+        public Entity(CoordinateSystem coordinateSystem)
         {
             _coordinateSystem = coordinateSystem;
         }
@@ -48,9 +49,9 @@ namespace GameEng
         }
         public void RemovePropety(string property)
         {
-            if (Properties.ContainsKey(property)) 
+            if (Properties.ContainsKey(property))
                 Properties.Remove(property);
-            else 
+            else
                 throw new EngineExceptions.InEntityExceptions.NoPropertyFound();
         }
 

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GameEngNamespace
+namespace GameEng.lib.BasicMath
 {
     public class VectorSpace
     {
@@ -43,8 +43,8 @@ namespace GameEngNamespace
 
             for (int i = 0; i < Dimension; i++)
             {
-               Console.WriteLine(Basis[i]);
-               vector += Basis[i] * point.CurrentMatrix[i, 0];
+                Console.WriteLine(Basis[i]);
+                vector += Basis[i] * point.CurrentMatrix[i, 0];
             }
 
             return vector;

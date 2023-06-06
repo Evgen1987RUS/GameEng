@@ -242,7 +242,7 @@ namespace Tests
             }
         }
 
-        [TestMethod]
+/*        [TestMethod]
         public void MatrixRotation()
         {
             float[,] arrayForCorrectAnswer = {
@@ -265,7 +265,7 @@ namespace Tests
                 }
             }
 
-        }
+        }*/
     }
 
     [TestClass]

@@ -4,13 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Engine
+namespace GameEng.lib.Engine.BasicClasses
 {
     public class Identifier
     {
         private List<string> _identifiers = new();
         private int _value = -1;
-        private int _valueNumber = -1;
 
         public List<string> Identifiers
         {
@@ -26,28 +25,21 @@ namespace Engine
 
         public int ValueNumber
         {
-            get { return _valueNumber; }
-            set { _valueNumber = value; }
+            get { return _value; }
+            set { _value = value; }
         }
 
         public Identifier() { Generate(); }
 
         public dynamic GetValue() { return Value; }
 
-        public void Generate() // TODO : переделать без рандома на инкремент
+        public void Generate()
         {
-            string charsForGenerate = "abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNOPQRSTUVWXYZ0123456789";
-            Random randomNumber = new();
-            char[] chars = new char[16];
+            if (ValueNumber == -1) { Identifiers.Add("1000000000000000"); _value++; return; }
 
-            for (int i = 0; i < 16; i++)
-            {
-                chars[i] = charsForGenerate[randomNumber.Next(59)];
-            }
-
+            long buff = long.Parse(GetValue()) + 1;
+            Identifiers.Add(buff.ToString());
             _value++;
-            _valueNumber++;
-            Identifiers.Add(new string(chars));
         }
     }
 }

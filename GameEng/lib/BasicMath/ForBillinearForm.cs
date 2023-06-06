@@ -1,13 +1,13 @@
 ﻿using System;
-using GameEngNamespace;
+using GameEng.lib.BasicMath;
 
 public class Program
 {
     public static float BilinearForm(Matrix matrix, Vector vector1, Vector vector2)
     {
-        if (matrix.N != matrix.M) throw new EngineExceptions.InMatrixExceptions.BadSize();
-        if (vector1.N != vector2.N) throw new EngineExceptions.InMatrixExceptions.BadSize(); ;
-        if (vector1.N != matrix.N) throw new EngineExceptions.InMatrixExceptions.BadSize(); ;
+        if (matrix.N != matrix.M) throw new GameEng.lib.Exceptions.EngineExceptions.InMatrixExceptions.BadSize();
+        if (vector1.N != vector2.N) throw new GameEng.lib.Exceptions.EngineExceptions.InMatrixExceptions.BadSize(); ;
+        if (vector1.N != matrix.N) throw new GameEng.lib.Exceptions.EngineExceptions.InMatrixExceptions.BadSize(); ;
 
         float sum = 0;
 

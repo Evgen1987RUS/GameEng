@@ -5,15 +5,15 @@ using System.Runtime.ConstrainedExecution;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GameEngNamespace
+namespace GameEng.lib.BasicMath
 {
     public class Vector : Matrix
     {
-        public Vector(int N, int M) : base(N, M) {}
+        public Vector(int N, int M) : base(N, M) { }
 
         public static float operator %(Vector vector1, Vector vector2)
             => vector1.ScalarProduct(vector2);
-        
+
         public static Vector operator ^(Vector vector1, Vector vector2)
             => vector1.CrossProduct(vector2);
 
@@ -38,7 +38,7 @@ namespace GameEngNamespace
             crossProduct.CurrentMatrix[0, 0] = CurrentMatrix[1, 0] * vector.CurrentMatrix[2, 0] - vector.CurrentMatrix[1, 0] * CurrentMatrix[2, 0];
             crossProduct.CurrentMatrix[1, 0] = -CurrentMatrix[0, 0] * vector.CurrentMatrix[2, 0] + vector.CurrentMatrix[0, 0] * CurrentMatrix[2, 0];
             crossProduct.CurrentMatrix[2, 0] = vector.CurrentMatrix[1, 0] * CurrentMatrix[0, 0] - CurrentMatrix[1, 0] * vector.CurrentMatrix[0, 0];
-            
+
             return crossProduct;
         }
 

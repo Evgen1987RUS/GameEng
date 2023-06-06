@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GameEngNamespace
+namespace GameEng.lib.BasicMath
 {
     public class CoordinateSystem
     {

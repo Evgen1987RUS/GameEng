@@ -1,12 +1,11 @@
-﻿using Engine;
-using GameEngNamespace;
+﻿using GameEng.lib.Exceptions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GameEng
+namespace GameEng.lib.Engine.BasicClasses
 {
     public class EntitiesList
     {
@@ -18,7 +17,7 @@ namespace GameEng
             set { _entities = value; }
         }
 
-        public EntitiesList(List<Entity> entities) 
+        public EntitiesList(List<Entity> entities)
         {
             _entities = entities;
         }
@@ -32,7 +31,7 @@ namespace GameEng
         {
             if (Entities.Contains(entity))
                 Entities.Remove(entity);
-            else 
+            else
                 throw new EngineExceptions.InEntityExceptions.NoKeyFound();
         }
 

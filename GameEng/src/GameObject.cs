@@ -1,8 +1,7 @@
-﻿using Engine;
-using GameEng;
-using GameEngNamespace;
+﻿using GameEng.lib.Engine.BasicClasses;
+using GameEng.lib.BasicMath;
 
-public class GameObject : Entity
+public abstract class GameObject : Entity
 {
 
     Point _position;
@@ -30,11 +29,13 @@ public class GameObject : Entity
 
     public void Move(Vector direction)
     {
-        Position = Position + direction;
+        Position += direction;
     }
 
-//TODO : PlanarRotation && 3D_Rotation
-    
+    public abstract void PlanarRotation(int axis1, int axis2, float angle);
+     
+    public abstract void Rotation_3D(float angleX, float angleY, float angleZ);
+
     public void SetPosition(Point position)
     {
         Position = position;

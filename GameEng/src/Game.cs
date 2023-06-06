@@ -1,11 +1,12 @@
-﻿using GameEngNamespace;
+﻿using GameEng.lib.BasicMath;
+using GameEng.lib.Engine.BasicClasses;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GameEng
+namespace GameEng.src
 {
     public class Game
     {
@@ -24,7 +25,7 @@ namespace GameEng
             set { _coordinateSystem = value; }
         }
 
-        public Game(CoordinateSystem coordinateSystem, EntitiesList entities) 
+        public Game(CoordinateSystem coordinateSystem, EntitiesList entities)
         {
             _entities = entities;
             _coordinateSystem = coordinateSystem;

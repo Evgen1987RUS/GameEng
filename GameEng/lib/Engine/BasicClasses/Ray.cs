@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using GameEngNamespace;
+﻿using GameEng.lib.BasicMath;
 
-namespace Engine
+namespace GameEng.lib.Engine.BasicClasses
 {
     public class Ray
     {
@@ -31,7 +26,7 @@ namespace Engine
             set { _direction = value; }
         }
 
-        public Ray(CoordinateSystem coordSystem, Point initalPoint, Vector direction) 
+        public Ray(CoordinateSystem coordSystem, Point initalPoint, Vector direction)
         {
             _coordSystem = coordSystem;
             _initialPoint = initalPoint;

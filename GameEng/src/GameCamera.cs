@@ -1,17 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
-using Engine;
-using GameEngNamespace;
+using GameEng.src;
+using GameEng.lib.BasicMath;
 
 namespace GameEng
 {
     public class GameCamera : GameObject
     {
         float _fov, _vfov, _drawDistance;
-        Point _lookAt;
+        Point _lookAt = new(3, 1);
 
         public float Fov
         {
@@ -77,5 +78,8 @@ namespace GameEng
             _drawDistance = drawDistance;
         }
 
+        public override void PlanarRotation(int axis1, int axis2, float angle) { } // stub
+
+        public override void Rotation_3D(float angleX, float angleY, float angleZ) { } // stub
     }
 }

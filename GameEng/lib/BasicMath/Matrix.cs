@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GameEng.lib.Exceptions;
+using System;
 using System.ComponentModel;
 using System.Data;
 using System.Diagnostics.CodeAnalysis;
@@ -6,17 +7,17 @@ using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.Serialization.Formatters;
 
-namespace GameEngNamespace
+namespace GameEng.lib.BasicMath
 {
     public class Matrix
     {
         private int _n, _m;
         private float[,] _matrix;
 
-        public int N 
-        { 
-            get { return _n; } 
-            set { _n = value; } 
+        public int N
+        {
+            get { return _n; }
+            set { _n = value; }
         }
 
         public int M
@@ -25,9 +26,9 @@ namespace GameEngNamespace
             set { _m = value; }
         }
 
-        public float[,] CurrentMatrix 
-        { 
-            get { return _matrix; } 
+        public float[,] CurrentMatrix
+        {
+            get { return _matrix; }
             set { _matrix = value; }
         }
 
@@ -74,7 +75,7 @@ namespace GameEngNamespace
 
         public static dynamic operator -(Matrix matrix1, Matrix matrix2)
         {
-            return matrix1 + matrix2 * (-1);
+            return matrix1 + matrix2 * -1;
         }
 
         public static dynamic operator *(Matrix matrix1, Matrix matrix2)
@@ -135,7 +136,7 @@ namespace GameEngNamespace
             if (column < 0 || column >= M) throw new EngineExceptions.InMatrixExceptions.OutOfDimensions();
 
             Matrix matrixNew = new(N, M - 1);
-            
+
             for (int i = 0; i < N; i++)
             {
                 for (int j = 0; j < M; j++)
@@ -143,7 +144,7 @@ namespace GameEngNamespace
                     if (j < column)
                     {
                         matrixNew.CurrentMatrix[i, j] = CurrentMatrix[i, j];
-                    } 
+                    }
                     else if (j > column)
                     {
                         matrixNew.CurrentMatrix[i, j - 1] = CurrentMatrix[i, j];
@@ -247,13 +248,13 @@ namespace GameEngNamespace
 
             for (int i = 0; i < n; i++)
             {
-                for (int j = 0; j < n ; j++)
+                for (int j = 0; j < n; j++)
                 {
                     if (i == j)
                     {
                         matrixNew.CurrentMatrix[i, j] = 1;
-                    } 
-                    
+                    }
+
                     else
                     {
                         matrixNew.CurrentMatrix[i, j] = 0;
@@ -263,7 +264,7 @@ namespace GameEngNamespace
 
             return matrixNew;
         }
- 
+
         public static Matrix GramMatrix(params Vector[] args)
         {
             Matrix gramMatrix = new(args.Length, args.Length);
@@ -279,7 +280,17 @@ namespace GameEngNamespace
             return gramMatrix;
         }
 
-//TODO : Rotate
+        public dynamic Rotate(params float[] args)
+        {
+            dynamic rotatedMatrix = GetType().GetConstructor(new Type[] { typeof(int), typeof(int) })!.Invoke(new object[] { N, M });
+
+            for (int i = 0; i < args.Length; i++)
+                args[i] = args[i] * ((float)Math.PI / 180);
+
+            if (N == 2)
+            {
+                if (args.Length != 1)
+                    throw new EngineExceptions.MutualExceptions.BadInput();
 
                 rotatedMatrix.CurrentMatrix[0, 0] = CurrentMatrix[0, 0] * (float)Math.Cos(args[0]) - CurrentMatrix[1, 0] * (float)Math.Sin(args[0]);
                 rotatedMatrix.CurrentMatrix[1, 0] = CurrentMatrix[0, 0] * (float)Math.Sin(args[0]) + CurrentMatrix[1, 0] * (float)Math.Cos(args[0]);
@@ -295,8 +306,8 @@ namespace GameEngNamespace
 
                 float sinAlpha = (float)Math.Sin(args[0]),
                       cosAlpha = (float)Math.Cos(args[0]),
-                      sinBeta  = (float)Math.Sin(args[1]),
-                      cosBeta  = (float)Math.Cos(args[1]),
+                      sinBeta = (float)Math.Sin(args[1]),
+                      cosBeta = (float)Math.Cos(args[1]),
                       sinGamma = (float)Math.Sin(args[2]),
                       cosGamma = (float)Math.Cos(args[2]);
 
@@ -313,6 +324,7 @@ namespace GameEngNamespace
             else
                 throw new EngineExceptions.MutualExceptions.BadInput();
         }
+
 
         public static void Print(Matrix matrix)
         {
