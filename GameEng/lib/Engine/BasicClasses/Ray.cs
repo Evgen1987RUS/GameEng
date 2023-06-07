@@ -32,5 +32,10 @@ namespace GameEng.lib.Engine.BasicClasses
             _initialPoint = initalPoint;
             _direction = direction;
         }
+
+        public void Normalize()
+        {
+            _direction /= CoordSystem.VectorSpace.Length(_direction);
+        }
     }
 }

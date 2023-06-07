@@ -3,7 +3,6 @@ using GameEng.lib.BasicMath;
 
 public abstract class GameObject : Entity
 {
-
     Point _position;
     Vector _direction;
 
@@ -35,6 +34,8 @@ public abstract class GameObject : Entity
     public abstract void PlanarRotation(int axis1, int axis2, float angle);
      
     public abstract void Rotation_3D(float angleX, float angleY, float angleZ);
+  
+    public abstract float? IntersectionDistance(Ray ray);
 
     public void SetPosition(Point position)
     {
@@ -45,5 +46,4 @@ public abstract class GameObject : Entity
     {
         Direction = direction;
     }
-
 }

@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using GameEng.src;
 using GameEng.lib.BasicMath;
+using GameEng.lib.Engine.BasicClasses;
 
 namespace GameEng
 {
@@ -81,5 +82,35 @@ namespace GameEng
         public override void PlanarRotation(int axis1, int axis2, float angle) { } // stub
 
         public override void Rotation_3D(float angleX, float angleY, float angleZ) { } // stub
+
+        public override float? IntersectionDistance(Ray ray) { return 0; } // stub
+
+        public Ray[,] GetRays(int horizontalBlocks, int verticalBlocks)
+        {
+            Vector initialDirectionVector = Direction == null ? (CoordinateSyst.VectorSpace.PointToVector(LookAt) - CoordinateSyst.VectorSpace.PointToVector(Position)) : Direction;
+
+            Ray[,] allRays = new Ray[horizontalBlocks, verticalBlocks];
+
+            float deltaHorizontalAlpha = Fov / (horizontalBlocks);
+            float deltaVerticalBeta = Vfov / (verticalBlocks);
+
+            for (int i = 0; i < verticalBlocks; i++)
+            {
+                for (int j = 0; j < horizontalBlocks; j++)
+                {
+                    float alpha_i = deltaHorizontalAlpha * i - Fov / 2f;
+                    float beta_i = deltaVerticalBeta * j - Vfov / 2f;
+
+                    Ray buff = new(CoordinateSyst, Position, initialDirectionVector);
+                    buff.Normalize();
+                    buff.Direction = initialDirectionVector.Rotate(alpha_i, alpha_i, 0);
+                    buff.Direction = buff.Direction.Rotate(beta_i, 0, beta_i);
+
+                    allRays[i, j] = buff;
+                }
+            }
+
+            return allRays;
+        }
     }
 }

@@ -1,6 +1,5 @@
-using Engine;
-using GameEng;
-using GameEngNamespace;
+using GameEng.lib.BasicMath;
+using GameEng.lib.Engine.BasicClasses;
 
 namespace Tests
 {
@@ -641,30 +640,73 @@ namespace Tests
             Assert.IsTrue(entity.GetProperty("bebra"));
         }
 
-        [TestMethod]
-        public void RemovePropertyTest()
+        
+    }
+
+    [TestClass]
+    public class RayTests
+    {
+        float[,] basis1array = {
+            { 1 },
+            { 0 },
+            { 0 }
+        };
+
+        float[,] basis2array = {
+            { 0 },
+            { 1 },
+            { 0 }
+        };
+
+        float[,] basis3array = {
+            { 0 },
+            { 0 },
+            { 1 }
+        };
+
+        float[,] pointArray =
         {
-            float[,] array =
+            { 0 }, 
+            { 0 }, 
+            { 0 }
+        };
+
+        float[,] vectorForTestArray = {
+            { 4 },
+            { 3 },
+            { 0 }
+        };
+
+        Vector basis1 = new(3, 1), basis2 = new(3, 1), basis3 = new(3, 1), vectorForTest = new(3, 1);
+        Point initialPt = new(3, 1);
+
+        [TestMethod]
+        public void NormalizeTest()
+        {
+            float[,] arrayForTest =
             {
-                { 1 },
-                { 2 },
-                { 3 },
+                { 4f / 5f },
+                { 3f / 5f },
+                { 0f },
             };
 
             basis1.CurrentMatrix = basis1array;
             basis2.CurrentMatrix = basis2array;
             basis3.CurrentMatrix = basis3array;
+            vectorForTest.CurrentMatrix = vectorForTestArray;
+            initialPt.CurrentMatrix = pointArray;
+
             VectorSpace vectorSpace = new(3, basis1, basis2, basis3);
-            Point pt = new(3, 1);
-            pt.CurrentMatrix = array;
-            CoordinateSystem cs = new(pt, vectorSpace);
+            CoordinateSystem coordinateSystem = new(initialPt, vectorSpace);
 
-            Entity entity = new(cs);
+            Ray ray = new(coordinateSystem, initialPt, vectorForTest); // basis1 as direction vector
 
-            entity.SetProperty("bebra", true);
-            entity.RemovePropety("bebra");
+            ray.Normalize();
 
-// TODO: ƒŒƒ≈À¿“‹ “≈—“
+            for (int i = 0; i < 3; i++)
+            {
+                Assert.AreEqual(ray.Direction.CurrentMatrix[i, 0], arrayForTest[i, 0]);
+            }
         }
     }
 }
