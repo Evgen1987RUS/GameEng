@@ -103,6 +103,7 @@ namespace GameEng
                     buff.Normalize();
                     buff.Direction = initialDirectionVector.Rotate(alpha_i, alpha_i, 0);
                     buff.Direction = buff.Direction.Rotate(beta_i, 0, beta_i);
+                    buff.Direction *= CoordinateSyst.VectorSpace.Length(initialDirectionVector) * CoordinateSyst.VectorSpace.Length(initialDirectionVector) / CoordinateSyst.VectorSpace.ScalarProduct(initialDirectionVector, buff.Direction);
 
                     allRays[i, j] = buff;
                 }

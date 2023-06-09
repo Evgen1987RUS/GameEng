@@ -35,7 +35,10 @@ namespace GameEng.lib.Engine.BasicClasses
 
         public void Normalize()
         {
-            _direction /= CoordSystem.VectorSpace.Length(_direction);
+            if (CoordSystem.VectorSpace.Length(_direction) != 0)
+            {
+                _direction /= CoordSystem.VectorSpace.Length(_direction);
+            }
         }
     }
 }
