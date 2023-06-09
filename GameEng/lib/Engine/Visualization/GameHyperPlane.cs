@@ -21,6 +21,7 @@ namespace GameEng.lib.Engine.Visualization
         public GameHyperPlane(CoordinateSystem coordinateSystem, Point position, Vector direction, Vector normal) : base(coordinateSystem, position, direction) 
         {
             _normal = normal;
+            SetProperty("normal", _normal);
         }
 
         public override float? IntersectionDistance(Ray ray)
@@ -43,14 +44,9 @@ namespace GameEng.lib.Engine.Visualization
             }
         }
 
-        public override void PlanarRotation(int axis1, int axis2, float angle)
-        {
-            throw new NotImplementedException();
-        }
-
         public override void Rotation_3D(float angleX, float angleY, float angleZ)
         {
-            throw new NotImplementedException();
+            Normal = Normal.Rotate(angleX, angleY, angleZ);
         }
     }
 }

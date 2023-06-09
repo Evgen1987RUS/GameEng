@@ -79,8 +79,6 @@ namespace GameEng
             _drawDistance = drawDistance;
         }
 
-        public override void PlanarRotation(int axis1, int axis2, float angle) { } // stub
-
         public override void Rotation_3D(float angleX, float angleY, float angleZ) { } // stub
 
         public override float? IntersectionDistance(Ray ray) { return 0; } // stub

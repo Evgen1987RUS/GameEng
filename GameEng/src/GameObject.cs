@@ -30,9 +30,7 @@ public abstract class GameObject : Entity
     {
         Position += direction;
     }
-
-    public abstract void PlanarRotation(int axis1, int axis2, float angle);
-     
+  
     public abstract void Rotation_3D(float angleX, float angleY, float angleZ);
   
     public abstract float? IntersectionDistance(Ray ray);
