@@ -1,12 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Cryptography.X509Certificates;
-using System.Text;
-using System.Threading.Tasks;
-using GameEng.src;
 using GameEng.lib.BasicMath;
 using GameEng.lib.Engine.BasicClasses;
+using System.Configuration;
 
 namespace GameEng
 {
@@ -41,6 +36,7 @@ namespace GameEng
 
         public GameCamera(CoordinateSystem coordinateSystem, Point point, Vector direction, float fov, float drawDistance) : base(coordinateSystem, point, direction)
         {
+/*            var appSettings = */
             SetProperty("fov", fov);
             SetProperty("draw distance", drawDistance);
             _fov = fov;
