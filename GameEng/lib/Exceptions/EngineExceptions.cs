@@ -25,9 +25,16 @@ namespace GameEng.lib.Exceptions
             public class NoKeyFound : Exception { public NoKeyFound() : base("No key found for the operation") { } }
         }
 
+        public abstract class InGameExceptions
+        {
+            public class NoPathFound : Exception { public NoPathFound() : base("No file was found with the given path") { } }
+        }
+
         public abstract class MutualExceptions
         {
             public class BadInput : Exception { public BadInput() : base("Bad input") { } }
         }
+
+
     }
 }

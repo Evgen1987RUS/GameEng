@@ -12,6 +12,7 @@ namespace GameEng.src
     {
         EntitiesList _entities;
         CoordinateSystem _coordinateSystem;
+        EventSystem _eventSystem;
 
         public EntitiesList Entities
         {
@@ -25,10 +26,22 @@ namespace GameEng.src
             set { _coordinateSystem = value; }
         }
 
-        public Game(CoordinateSystem coordinateSystem, EntitiesList entities)
+        public EventSystem EventSystem
+        {
+            get { return _eventSystem; }
+            set { _eventSystem = value; }
+        }
+
+        public Game(CoordinateSystem coordinateSystem, EntitiesList entities, EventSystem eventSystem)
         {
             _entities = entities;
             _coordinateSystem = coordinateSystem;
+            _eventSystem = eventSystem;
+        }
+
+        public void ApplyConfiguration(GameConfiguration configuration) // ?? TODO: ApplyConfiguration
+        {
+            throw new Exception();
         }
 
         public void Run() { }

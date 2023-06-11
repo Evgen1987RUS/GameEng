@@ -1,4 +1,5 @@
 ﻿using GameEng.lib.BasicMath;
+using GameEng.src;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace GameEng.lib.Engine.Visualization
 {
-    public class GameCanvas
+    public abstract class GameCanvas
     {
         int _horizontal, _vertical;
         Matrix _distances;
@@ -30,17 +31,14 @@ namespace GameEng.lib.Engine.Visualization
             set { _distances = value; }
         }
 
-        public GameCanvas(int horizontal, int vertical) 
+        public GameCanvas(GameConfiguration config) 
         {
-            _horizontal = horizontal;
-            _vertical = vertical;
+            _horizontal = config.GetVariable("horizontalBlocks");
+            _vertical = config.GetVariable("verticalVlocks");
             _distances = new(_horizontal, _vertical);
         }
 
-        public void Draw()
-        {
-
-        }
+        public abstract void Draw();
 
         public void Update(GameCamera gameCamera)
         {

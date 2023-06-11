@@ -2,18 +2,19 @@
 using GameEng.lib.BasicMath;
 using GameEng.lib.Engine.BasicClasses;
 using System.Configuration;
+using GameEng.src;
 
 namespace GameEng
 {
     public class GameCamera : GameObject
     {
-        float _fov, _vfov, _drawDistance;
+        float _hfov, _vfov, _drawDistance;
         Point _lookAt = new(3, 1);
 
-        public float Fov
+        public float Hfov
         {
-            get { return _fov; }
-            set { _fov = value; }
+            get { return _hfov; }
+            set { _hfov = value; }
         }
 
         public float Vfov
@@ -34,45 +35,44 @@ namespace GameEng
             set { _drawDistance = value; }
         }
 
-        public GameCamera(CoordinateSystem coordinateSystem, Point point, Vector direction, float fov, float drawDistance) : base(coordinateSystem, point, direction)
+        public GameCamera(CoordinateSystem coordinateSystem, Point point, Vector direction, GameConfiguration config) : base(coordinateSystem, point, direction)
         {
-/*            var appSettings = */
-            SetProperty("fov", fov);
-            SetProperty("draw distance", drawDistance);
-            _fov = fov;
-            _drawDistance = drawDistance;
+            _hfov = config.GetVariable("hfov");
+            _drawDistance = config.GetVariable("drawDistance");
+            SetProperty("hfov", _hfov);
+            SetProperty("draw distance", _drawDistance);
         }
 
-        public GameCamera(CoordinateSystem coordinateSystem, Point point, Vector direction, float fov, float vfov, float drawDistance) : base(coordinateSystem, point, direction)
+        public GameCamera(CoordinateSystem coordinateSystem, Point point, Vector direction, GameConfiguration config, int placeholder) : base(coordinateSystem, point, direction) // placeholder is required for making VS ignore two of the same constructors
         {
-            SetProperty("fov", fov);
-            SetProperty("vfov", vfov);
-            SetProperty("draw distance", drawDistance);
-            _fov = fov;
-            _drawDistance = drawDistance;
-            _vfov = vfov;
+            _hfov = config.GetVariable("hfov");
+            _vfov = config.GetVariable("vfov");
+            _drawDistance = config.GetVariable("drawDistance");
+            SetProperty("hfov", _hfov);
+            SetProperty("vfov", _vfov);
+            SetProperty("draw distance", _drawDistance);
         }
 
-        public GameCamera(CoordinateSystem coordinateSystem, Point point, Vector direction, float fov, Point lookAt, float drawDistance) : base(coordinateSystem, point, direction)
+        public GameCamera(CoordinateSystem coordinateSystem, Point point, Vector direction, Point lookAt, GameConfiguration config) : base(coordinateSystem, point, direction)
         {
-            SetProperty("fov", fov);
-            SetProperty("look at", lookAt);
-            SetProperty("draw distance", drawDistance);
-            _fov = fov;
+            _hfov = config.GetVariable("hfov");
+            _drawDistance = config.GetVariable("drawDistance");
             _lookAt = lookAt;
-            _drawDistance = drawDistance;
+            SetProperty("hfov", _hfov);
+            SetProperty("draw distance", _drawDistance);
+            SetProperty("look at", _lookAt);
         }
 
-        public GameCamera(CoordinateSystem coordinateSystem, Point point, Vector direction, float fov, Point lookAt, float vfov, float drawDistance) : base(coordinateSystem, point, direction)
+        public GameCamera(CoordinateSystem coordinateSystem, Point point, Vector direction, Point lookAt, GameConfiguration config, int placeholder) : base(coordinateSystem, point, direction) // placeholder is required for making VS ignore two of the same constructors
         {
-            SetProperty("fov", fov);
-            SetProperty("look at", lookAt);
-            SetProperty("vfov", vfov);
-            SetProperty("draw distance", drawDistance);
-            _fov = fov;
-            _vfov = vfov;
+            _hfov = config.GetVariable("hfov");
+            _vfov = config.GetVariable("vfov");
+            _drawDistance = config.GetVariable("drawDistance");
             _lookAt = lookAt;
-            _drawDistance = drawDistance;
+            SetProperty("fov", _hfov);
+            SetProperty("vfov", _vfov);
+            SetProperty("draw distance", _drawDistance);
+            SetProperty("look at", _lookAt);
         }
 
         public override void Rotation_3D(float angleX, float angleY, float angleZ) { } // stub
@@ -85,14 +85,14 @@ namespace GameEng
 
             Ray[,] allRays = new Ray[horizontalBlocks, verticalBlocks];
 
-            float deltaHorizontalAlpha = Fov / (horizontalBlocks);
+            float deltaHorizontalAlpha = Hfov / (horizontalBlocks);
             float deltaVerticalBeta = Vfov / (verticalBlocks);
 
             for (int i = 0; i < verticalBlocks; i++)
             {
                 for (int j = 0; j < horizontalBlocks; j++)
                 {
-                    float alpha_i = deltaHorizontalAlpha * i - Fov / 2f;
+                    float alpha_i = deltaHorizontalAlpha * i - Hfov / 2f;
                     float beta_i = deltaVerticalBeta * j - Vfov / 2f;
 
                     Ray buff = new(CoordinateSyst, Position, initialDirectionVector);
