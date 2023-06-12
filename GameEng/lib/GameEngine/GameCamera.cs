@@ -82,14 +82,14 @@ namespace GameEng.lib.GameEngine
         {
             Vector initialDirectionVector = Direction == null ? CoordinateSyst.VectorSpace.PointToVector(LookAt) - CoordinateSyst.VectorSpace.PointToVector(Position) : Direction;
 
-            Ray[,] allRays = new Ray[verticalBlocks, horizontalBlocks];
+            Ray[,] allRays = new Ray[horizontalBlocks, verticalBlocks];
 
             float deltaHorizontalAlpha = Hfov / horizontalBlocks;
             float deltaVerticalBeta = Vfov / verticalBlocks;
 
-            for (int i = 0; i < verticalBlocks; i++)
+            for (int i = 0; i < horizontalBlocks; i++)
             {
-                for (int j = 0; j < horizontalBlocks; j++)
+                for (int j = 0; j < verticalBlocks; j++)
                 {
                     float alpha_i = deltaHorizontalAlpha * i - Hfov / 2f;
                     float beta_i = deltaVerticalBeta * j - Vfov / 2f;

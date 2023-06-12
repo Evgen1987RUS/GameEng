@@ -15,8 +15,8 @@ namespace GameEng.src
     {
         public static void Main() 
         {
-            Vector basis1 = new(3, 1), basis2 = new(3, 1), basis3 = new(3, 1), initialDirection = new(3, 1);
-            Point initialPointCam = new(3, 1);
+            Vector basis1 = new(3, 1), basis2 = new(3, 1), basis3 = new(3, 1), initialDirection = new(3, 1), normalVector = new(3, 1);
+            Point initialPointCam = new(3, 1), pointHyperPlane1 = new(3, 1);
             float[,] basis1array = 
             {
                 { 1 },
@@ -44,16 +44,34 @@ namespace GameEng.src
                 { 0 },
                 { 0 }
             };
-            
-            basis1.CurrentMatrix = basis2array; basis2.CurrentMatrix = basis2array; basis3.CurrentMatrix = basis3array; initialDirection.CurrentMatrix = initialPointArray;
-            initialPointCam.CurrentMatrix = initialPointArray;
 
+            float[,] initialPointHyperPlane1Array =
+            {
+                { -7 },
+                { -7 },
+                { -7 }
+            };
+
+            float[,] normalVectorArray =
+            {
+                { -1 },
+                { 10 },
+                { 10 }
+            };
+            
+            basis1.CurrentMatrix = basis1array; basis2.CurrentMatrix = basis2array; basis3.CurrentMatrix = basis3array; initialDirection.CurrentMatrix = initialPointArray;
+            initialPointCam.CurrentMatrix = initialPointArray; pointHyperPlane1.CurrentMatrix = initialPointHyperPlane1Array; normalVector.CurrentMatrix = normalVectorArray;
+
+/*            string currentDirectory = AppDomain.CurrentDomain.BaseDirectory;
+            string file = System.IO.Path.Combine(currentDirectory, "../config/default.config");
+            string filePath = Path.GetFullPath(file);*/
             CoordinateSystem cs = new(new Point(3, 1), new VectorSpace(3, basis1, basis2, basis3));
-            GameConfiguration config = new("../config/default.config");
+            GameConfiguration config = new(@"C:\Users\Евгений\source\repos\Evgen1987RUS\GameEng\GameEng\config\default.config");
 
-            Game game = new(cs,
-                new EntitiesList(new List<Entity>()), config, new GameCamera(cs, initialPointCam, initialDirection, config, true));
-            
+            Game game = new(cs, new EntitiesList(new List<Entity>()), config, new GameCamera(cs, initialPointCam, initialDirection, config, true));
+
+            game.Entities.Append(new GameHyperPlane(cs, pointHyperPlane1, initialDirection, normalVector));
+
             game.Run();
         }
     }

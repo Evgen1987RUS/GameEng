@@ -17,7 +17,7 @@ namespace GameEng.lib.GameEngine
         GameCanvas _canvas;
         GameCamera _camera;
         public event EventHandler<ConsoleKeyInfo>? KeyPress;
-        int _wait;
+        float _wait;
 
         public EntitiesList Entities
         {
@@ -37,8 +37,7 @@ namespace GameEng.lib.GameEngine
             _coordinateSystem = coordinateSystem;
             _camera = camera;
             _wait = config.GetVariable("wait");
-            _canvas = new GameConsole(config, this);
-            
+            _canvas = new GameConsole(config, this); 
         }
 
         public void Run()
@@ -49,7 +48,7 @@ namespace GameEng.lib.GameEngine
             {
                 while (Console.KeyAvailable == false)
                 {
-                    Thread.Sleep(_wait);
+                    Thread.Sleep((int)_wait);
                     Update(); 
                 }
 

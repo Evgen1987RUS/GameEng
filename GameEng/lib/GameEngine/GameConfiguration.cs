@@ -35,13 +35,13 @@ namespace GameEng.lib.GameEngine
             else
             {
                 var configBuff = ConfigurationManager.OpenMappedExeConfiguration(configMap, ConfigurationUserLevel.None);
-                _config.Add("hfov", configBuff.AppSettings.Settings["hfov"].Value);
-                _config.Add("vfov", configBuff.AppSettings.Settings["vfov"].Value);
-                _config.Add("horizontalBlocks", configBuff.AppSettings.Settings["horizontalBlocks"].Value);
-                _config.Add("verticalBlocks", configBuff.AppSettings.Settings["verticalBlocks"].Value);
-                _config.Add("fps", configBuff.AppSettings.Settings["fps"].Value);
-                _config.Add("drawDistance", configBuff.AppSettings.Settings["drawDistance"].Value);
-                _config.Add("wait", configBuff.AppSettings.Settings["wait"].Value);
+                _config.Add("hfov", int.Parse(configBuff.AppSettings.Settings["hfov"].Value));
+                _config.Add("vfov", int.Parse(configBuff.AppSettings.Settings["vfov"].Value));
+                _config.Add("horizontalBlocks", int.Parse(configBuff.AppSettings.Settings["horizontalBlocks"].Value));
+                _config.Add("verticalBlocks", int.Parse(configBuff.AppSettings.Settings["verticalBlocks"].Value));
+                _config.Add("fps", int.Parse(configBuff.AppSettings.Settings["fps"].Value));
+                _config.Add("drawDistance", int.Parse(configBuff.AppSettings.Settings["drawDistance"].Value));
+                _config.Add("wait", int.Parse(configBuff.AppSettings.Settings["wait"].Value));
             }
         }
 
