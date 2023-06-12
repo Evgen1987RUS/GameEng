@@ -24,7 +24,7 @@ namespace GameEng.lib.Engine.Visualization
             _semiaxes = semiaxes;    
         }
 
-        public override float? IntersectionDistance(Ray ray) // TODO: Intersection distance for hyper ellipsoid
+        public override float IntersectionDistance(Ray ray)
         {
             float localLength_utility(float x, float y, float z)
             {
@@ -52,7 +52,7 @@ namespace GameEng.lib.Engine.Visualization
 
             if (discriminant < 0)
             {
-                return null;
+                return -1;
             }
             else if (discriminant == 0) 
             {

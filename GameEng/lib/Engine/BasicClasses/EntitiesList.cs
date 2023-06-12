@@ -43,7 +43,13 @@ namespace GameEng.lib.Engine.BasicClasses
                 throw new EngineExceptions.InEntityExceptions.NoKeyFound();
         }
 
-        // пройтись по списку
+        public IEnumerator<Entity> GetEnumerator()
+        {
+            foreach (Entity entity in Entities)
+            {
+                yield return entity;
+            }
+        }
 
         public Entity this[Identifier id]
         {

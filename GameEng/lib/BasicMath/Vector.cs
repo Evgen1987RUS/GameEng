@@ -45,5 +45,19 @@ namespace GameEng.lib.BasicMath
 
         public float Length()
             => ScalarProduct(this);
+
+        public static Vector toVector(Matrix matrix)
+        {
+            if (matrix.N != 3) throw new EngineExceptions.MutualExceptions.BadInput();
+
+            Vector vector = new(3, 1);
+
+            for (int i = 0; i < 3; i++)
+            {
+                vector.CurrentMatrix[i, 0] = matrix.CurrentMatrix[i, 0];
+            }
+
+            return vector;
+        }
     }
 }

@@ -6,16 +6,15 @@ using System.Threading.Tasks;
 using System.Configuration;
 using GameEng.lib.Exceptions;
 
-namespace GameEng.src
+namespace GameEng.lib.GameEngine
 {
     public class GameConfiguration
     {
         Dictionary<string, dynamic> _config = new();
-        
 
-        public Dictionary<string, dynamic> Config 
+        public Dictionary<string, dynamic> Config
         {
-            get { return _config; } 
+            get { return _config; }
             set { _config = value; }
         }
 
@@ -25,11 +24,13 @@ namespace GameEng.src
             configMap.ExeConfigFilename = filePath;
             if (filePath == "" || !File.Exists(filePath))
             {
-                _config.Add("hfov", 60);
+                _config.Add("hfov", 60); 
                 _config.Add("vfov", 30);
                 _config.Add("horizontalBlocks", 5);
                 _config.Add("verticalBlocks", 3);
                 _config.Add("fps", 30);
+                _config.Add("drawDistance", 20);
+                _config.Add("wait", 100);
             }
             else
             {
@@ -39,6 +40,8 @@ namespace GameEng.src
                 _config.Add("horizontalBlocks", configBuff.AppSettings.Settings["horizontalBlocks"].Value);
                 _config.Add("verticalBlocks", configBuff.AppSettings.Settings["verticalBlocks"].Value);
                 _config.Add("fps", configBuff.AppSettings.Settings["fps"].Value);
+                _config.Add("drawDistance", configBuff.AppSettings.Settings["drawDistance"].Value);
+                _config.Add("wait", configBuff.AppSettings.Settings["wait"].Value);
             }
         }
 
@@ -49,6 +52,8 @@ namespace GameEng.src
             _config.Add("horizontalBlocks", 5);
             _config.Add("verticalBlocks", 3);
             _config.Add("fps", 30);
+            _config.Add("drawDistance", 20);
+            _config.Add("wait", 100);
         }
 
         public void SetVariable(string name, dynamic value)
@@ -70,6 +75,8 @@ namespace GameEng.src
                 _config.Add("horizontalBlocks", 5);
                 _config.Add("verticalBlocks", 3);
                 _config.Add("fps", 30);
+                _config.Add("drawDistance", 20);
+                _config.Add("wait", 100);
             }
             else
             {
@@ -79,12 +86,14 @@ namespace GameEng.src
                 _config["horizontalBlocks"] = configBuff.AppSettings.Settings["horizontalBlocks"].Value;
                 _config["verticalBlocks"] = configBuff.AppSettings.Settings["verticalBlocks"].Value;
                 _config["fps"] = configBuff.AppSettings.Settings["fps"].Value;
+                _config["drawDistance"] = configBuff.AppSettings.Settings["drawDistance"].Value;
+                _config["wait"] = configBuff.AppSettings.Settings["wait"].Value;
             }
         }
 
         public void Save(string filePath)
         {
-            if (filePath == "" || !File.Exists(filePath)) 
+            if (filePath == "" || !File.Exists(filePath))
             {
                 throw new EngineExceptions.InGameExceptions.NoPathFound();
             }
@@ -98,6 +107,8 @@ namespace GameEng.src
             configBuff.AppSettings.Settings["horizontalBlocks"].Value = _config["horizontalBlocks"];
             configBuff.AppSettings.Settings["verticalBlocks"].Value = _config["verticalBlocks"];
             configBuff.AppSettings.Settings["fps"].Value = _config["fps"];
+            configBuff.AppSettings.Settings["drawDistance"].Value = _config["drawDistance"];
+            configBuff.AppSettings.Settings["wait"].Value = _config["wait"];
         }
 
         public dynamic this[string property]

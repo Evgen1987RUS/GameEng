@@ -41,8 +41,8 @@ namespace GameEng.lib.Engine.BasicClasses
         }
 
         public void Trigger(string name)
-        {
-            for (int i = 0; i < Events[name].Count; i++)
+        { 
+            for (int i = 0; i < Events[name].Count; i++) 
             {
                 Events[name][i]();
             }

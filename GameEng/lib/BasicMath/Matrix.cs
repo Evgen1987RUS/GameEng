@@ -29,7 +29,7 @@ namespace GameEng.lib.BasicMath
         public float[,] CurrentMatrix
         {
             get { return _matrix; }
-            set { _matrix = value; }
+            set { _matrix = value!; }
         }
 
         public Matrix(int n, int m)
@@ -81,7 +81,7 @@ namespace GameEng.lib.BasicMath
         public static dynamic operator *(Matrix matrix1, Matrix matrix2)
         {
             if (matrix1.M != matrix2.N) throw new EngineExceptions.InMatrixExceptions.BadSize();
-
+            
             int counter = 0;
 
             dynamic matrixNew = matrix1.GetType().GetConstructor(new Type[] { typeof(int), typeof(int) })!.Invoke(new object[] { matrix1.N, matrix2.M });

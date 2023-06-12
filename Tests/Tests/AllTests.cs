@@ -307,7 +307,7 @@ namespace Tests
         [TestMethod]
         public void VectorDifference()
         {
-            float[,] arrayForCorrectAnswer = {
+            float[,] arrayForCorrectAnswer = { 
                 { -2 },
                 { 0 },
                 { 2 },
@@ -437,7 +437,7 @@ namespace Tests
             vector1.CurrentMatrix = arrayForTests1;
             vector2.CurrentMatrix = arrayForTests2;
 
-            Assert.AreEqual(Program.BilinearForm(matrix, vector1, vector2), 204);
+            Assert.AreEqual(Matrix.BilinearForm(matrix, vector1, vector2), 204);
         }
 
         [TestMethod]

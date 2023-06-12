@@ -33,7 +33,7 @@ public abstract class GameObject : Entity
   
     public abstract void Rotation_3D(float angleX, float angleY, float angleZ);
   
-    public abstract float? IntersectionDistance(Ray ray);
+    public abstract float IntersectionDistance(Ray ray);
 
     public void SetPosition(Point position)
     {

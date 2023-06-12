@@ -24,7 +24,7 @@ namespace GameEng.lib.Engine.Visualization
             SetProperty("normal", _normal);
         }
 
-        public override float? IntersectionDistance(Ray ray)
+        public override float IntersectionDistance(Ray ray)
         {
             if (CoordinateSyst.VectorSpace.ScalarProduct(Normal, Direction) < 0.001)
             {
@@ -33,8 +33,8 @@ namespace GameEng.lib.Engine.Visualization
                     return 0;
                 }
                 else
-                {
-                    return null;
+                { 
+                    return -1;
                 }
             } 
             else

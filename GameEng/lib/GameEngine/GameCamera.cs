@@ -2,9 +2,8 @@
 using GameEng.lib.BasicMath;
 using GameEng.lib.Engine.BasicClasses;
 using System.Configuration;
-using GameEng.src;
 
-namespace GameEng
+namespace GameEng.lib.GameEngine
 {
     public class GameCamera : GameObject
     {
@@ -43,7 +42,7 @@ namespace GameEng
             SetProperty("draw distance", _drawDistance);
         }
 
-        public GameCamera(CoordinateSystem coordinateSystem, Point point, Vector direction, GameConfiguration config, int placeholder) : base(coordinateSystem, point, direction) // placeholder is required for making VS ignore two of the same constructors
+        public GameCamera(CoordinateSystem coordinateSystem, Point point, Vector direction, GameConfiguration config, bool isVfov) : base(coordinateSystem, point, direction) // isVfov is required for making VS ignore two of the same constructors
         {
             _hfov = config.GetVariable("hfov");
             _vfov = config.GetVariable("vfov");
@@ -63,7 +62,7 @@ namespace GameEng
             SetProperty("look at", _lookAt);
         }
 
-        public GameCamera(CoordinateSystem coordinateSystem, Point point, Vector direction, Point lookAt, GameConfiguration config, int placeholder) : base(coordinateSystem, point, direction) // placeholder is required for making VS ignore two of the same constructors
+        public GameCamera(CoordinateSystem coordinateSystem, Point point, Vector direction, Point lookAt, GameConfiguration config, bool isVfov) : base(coordinateSystem, point, direction) // isVfov is required for making VS ignore two of the same constructors
         {
             _hfov = config.GetVariable("hfov");
             _vfov = config.GetVariable("vfov");
@@ -77,16 +76,16 @@ namespace GameEng
 
         public override void Rotation_3D(float angleX, float angleY, float angleZ) { } // stub
 
-        public override float? IntersectionDistance(Ray ray) { return 0; } // stub
+        public override float IntersectionDistance(Ray ray) { return 0; } // stub
 
         public Ray[,] GetRays(int horizontalBlocks, int verticalBlocks)
         {
-            Vector initialDirectionVector = Direction == null ? (CoordinateSyst.VectorSpace.PointToVector(LookAt) - CoordinateSyst.VectorSpace.PointToVector(Position)) : Direction;
+            Vector initialDirectionVector = Direction == null ? CoordinateSyst.VectorSpace.PointToVector(LookAt) - CoordinateSyst.VectorSpace.PointToVector(Position) : Direction;
 
-            Ray[,] allRays = new Ray[horizontalBlocks, verticalBlocks];
+            Ray[,] allRays = new Ray[verticalBlocks, horizontalBlocks];
 
-            float deltaHorizontalAlpha = Hfov / (horizontalBlocks);
-            float deltaVerticalBeta = Vfov / (verticalBlocks);
+            float deltaHorizontalAlpha = Hfov / horizontalBlocks;
+            float deltaVerticalBeta = Vfov / verticalBlocks;
 
             for (int i = 0; i < verticalBlocks; i++)
             {
@@ -94,11 +93,11 @@ namespace GameEng
                 {
                     float alpha_i = deltaHorizontalAlpha * i - Hfov / 2f;
                     float beta_i = deltaVerticalBeta * j - Vfov / 2f;
-
+                    
                     Ray buff = new(CoordinateSyst, Position, initialDirectionVector);
                     buff.Normalize();
-                    buff.Direction = initialDirectionVector.Rotate(alpha_i, alpha_i, 0);
-                    buff.Direction = buff.Direction.Rotate(beta_i, 0, beta_i);
+                    buff.Direction = Vector.toVector(initialDirectionVector.Rotate(alpha_i, alpha_i, 0)); 
+                    buff.Direction = Vector.toVector(buff.Direction.Rotate(beta_i, 0, beta_i));
                     buff.Direction *= CoordinateSyst.VectorSpace.Length(initialDirectionVector) * CoordinateSyst.VectorSpace.Length(initialDirectionVector) / CoordinateSyst.VectorSpace.ScalarProduct(initialDirectionVector, buff.Direction);
 
                     allRays[i, j] = buff;
