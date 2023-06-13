@@ -26,20 +26,20 @@ namespace GameEng.lib.Engine.Visualization
 
         public override float IntersectionDistance(Ray ray)
         {
-            if (CoordinateSyst.VectorSpace.ScalarProduct(Normal, Direction) < 0.001)
+            if (Math.Abs(CoordinateSyst.VectorSpace.ScalarProduct(Normal, Direction)) < 0.001)
             {
-                if (CoordinateSyst.VectorSpace.ScalarProduct(Normal, ray.InitialPoint - Position) < 0.001)
+                if (Math.Abs(CoordinateSyst.VectorSpace.ScalarProduct(Normal, Position - ray.InitialPoint)) < 0.001)
                 {
                     return 0;
                 }
                 else
-                { 
+                {
                     return -1;
                 }
             } 
             else
             {
-                Point intersectionPoint = ray.InitialPoint + Direction * (-(CoordinateSyst.VectorSpace.ScalarProduct(Normal, ray.InitialPoint - Position)) / (CoordinateSyst.VectorSpace.ScalarProduct(Normal, Direction)));
+                Point intersectionPoint = ray.InitialPoint + Direction * (-(Math.Abs(CoordinateSyst.VectorSpace.ScalarProduct(Normal, ray.InitialPoint - Position))) / Math.Abs((CoordinateSyst.VectorSpace.ScalarProduct(Normal, Direction))));
                 return CoordinateSyst.VectorSpace.Length(intersectionPoint - ray.InitialPoint);
             }
         }

@@ -2,6 +2,7 @@
 using GameEng.lib.BasicMath;
 using GameEng.lib.Engine.BasicClasses;
 using System.Configuration;
+using GameEng.src;
 
 namespace GameEng.lib.GameEngine
 {
@@ -93,10 +94,10 @@ namespace GameEng.lib.GameEngine
                 {
                     float alpha_i = deltaHorizontalAlpha * i - Hfov / 2f;
                     float beta_i = deltaVerticalBeta * j - Vfov / 2f;
-                    
+
                     Ray buff = new(CoordinateSyst, Position, initialDirectionVector);
                     buff.Normalize();
-                    buff.Direction = Vector.toVector(initialDirectionVector.Rotate(alpha_i, alpha_i, 0)); 
+                    buff.Direction = Vector.toVector(initialDirectionVector.Rotate(alpha_i, alpha_i, 0));
                     buff.Direction = Vector.toVector(buff.Direction.Rotate(beta_i, 0, beta_i));
                     buff.Direction *= CoordinateSyst.VectorSpace.Length(initialDirectionVector) * CoordinateSyst.VectorSpace.Length(initialDirectionVector) / CoordinateSyst.VectorSpace.ScalarProduct(initialDirectionVector, buff.Direction);
 

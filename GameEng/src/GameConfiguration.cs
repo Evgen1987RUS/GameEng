@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.Configuration;
 using GameEng.lib.Exceptions;
 
-namespace GameEng.lib.GameEngine
+namespace GameEng.src
 {
     public class GameConfiguration
     {
@@ -24,12 +24,12 @@ namespace GameEng.lib.GameEngine
             configMap.ExeConfigFilename = filePath;
             if (filePath == "" || !File.Exists(filePath))
             {
-                _config.Add("hfov", 60); 
+                _config.Add("hfov", 60);
                 _config.Add("vfov", 30);
-                _config.Add("horizontalBlocks", 5);
-                _config.Add("verticalBlocks", 3);
+                _config.Add("horizontalBlocks", 20);
+                _config.Add("verticalBlocks", 30);
                 _config.Add("fps", 30);
-                _config.Add("drawDistance", 20);
+                _config.Add("drawDistance", 10000);
                 _config.Add("wait", 100);
             }
             else
@@ -49,8 +49,8 @@ namespace GameEng.lib.GameEngine
         {
             _config.Add("hfov", 60);
             _config.Add("vfov", 30);
-            _config.Add("horizontalBlocks", 5);
-            _config.Add("verticalBlocks", 3);
+            _config.Add("horizontalBlocks", 50);
+            _config.Add("verticalBlocks", 30);
             _config.Add("fps", 30);
             _config.Add("drawDistance", 20);
             _config.Add("wait", 100);

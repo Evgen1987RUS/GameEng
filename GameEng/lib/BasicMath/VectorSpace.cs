@@ -44,9 +44,9 @@ namespace GameEng.lib.BasicMath
 
             Vector crossProduct = new(3, 1);
 
-            crossProduct.CurrentMatrix[0, 0] = Basis[0] * (vector2.CurrentMatrix[1, 0] * vector1.CurrentMatrix[2, 0] - vector1.CurrentMatrix[1, 0] * vector2.CurrentMatrix[2, 0]);
-            crossProduct.CurrentMatrix[1, 0] = Basis[1] * (-vector2.CurrentMatrix[0, 0] * vector1.CurrentMatrix[2, 0] + vector1.CurrentMatrix[0, 0] * vector2.CurrentMatrix[2, 0]);
-            crossProduct.CurrentMatrix[2, 0] = Basis[2] * (vector1.CurrentMatrix[1, 0] * vector2.CurrentMatrix[0, 0] - vector2.CurrentMatrix[1, 0] * vector1.CurrentMatrix[0, 0]);
+            crossProduct += Basis[0] * (vector2.CurrentMatrix[1, 0] * vector1.CurrentMatrix[2, 0] - vector1.CurrentMatrix[1, 0] * vector2.CurrentMatrix[2, 0]);
+            crossProduct += Basis[1] * (-vector2.CurrentMatrix[0, 0] * vector1.CurrentMatrix[2, 0] + vector1.CurrentMatrix[0, 0] * vector2.CurrentMatrix[2, 0]);
+            crossProduct += Basis[2] * (vector1.CurrentMatrix[1, 0] * vector2.CurrentMatrix[0, 0] - vector2.CurrentMatrix[1, 0] * vector1.CurrentMatrix[0, 0]);
 
             return crossProduct;
         }
@@ -66,6 +66,14 @@ namespace GameEng.lib.BasicMath
 
             return vector;
 
+        }
+
+        public Vector Normalize(Vector vector)
+        {
+            if (Length(vector) == 0)
+                return vector;
+            
+            return vector / Length(vector);
         }
 
     }

@@ -1,16 +1,17 @@
 ﻿using GameEng.lib.Engine.BasicClasses;
 using GameEng.lib.Engine.Visualization;
+using GameEng.lib.GameEngine;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GameEng.lib.GameEngine
+namespace GameEng.src
 {
     public class GameConsole : GameCanvas
     {
-        string _charmap = ".:;><+r*zsvfwqkP694VOGbUAKXH8RD#$B0MNWQ%&@&@";
+        string _charmap = "@&%QWNM0B$#DR8HXKAUbGOV496Pkqwfvsz*r+<>;:.";
 
         public string Charmap
         {
@@ -23,16 +24,16 @@ namespace GameEng.lib.GameEngine
         public override void Draw(GameCamera camera)
         {
             Update(camera);
-            string canvas = "";
+            StringBuilder canvas = new();
 
             for (int i = 0; i < Horizontal; i++)
             {
                 for (int j = 0; j < Vertical; j++)
                 {
-                    canvas += GetChar(i, j, camera);
+                    canvas.Append(GetChar(i, j, camera));
                 }
 
-                canvas += "\n";
+                canvas.Append("\n");
             }
 
             Console.Clear();
@@ -44,7 +45,7 @@ namespace GameEng.lib.GameEngine
             if (Distances.CurrentMatrix[i, j] == -1)
                 return Charmap[Charmap.Length - 1];
 
-            return Charmap[(int)(Distances.CurrentMatrix[i, j] / (float)gameCamera.DrawDistance)];
+            return Charmap[(int)(Distances.CurrentMatrix[i, j] / (float)gameCamera.DrawDistance) * (Charmap.Length - 1)];
         }
 
         public override void Update(GameCamera gameCamera)
@@ -59,7 +60,7 @@ namespace GameEng.lib.GameEngine
 
                     foreach (GameObject gameObject in Game_.Entities)
                     {
-                        float intersectionDistance = gameObject.IntersectionDistance(rays[i, j]);
+                        float intersectionDistance = gameObject.IntersectionDistance(rays[i, j]); // луч без направления
                         if (intersectionDistance == -1 || intersectionDistance > DrawDistance)
                             continue;
                         if (Distances.CurrentMatrix[i, j] == -1 || Distances.CurrentMatrix[i, j] > intersectionDistance)
